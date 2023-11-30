@@ -7,13 +7,13 @@ This year, I've made a runner in `aoc.py` that automatically downloads inputs an
 usage: aoc-run [-h] [-f] [-n] [-p PART] [-e] day
 
 positional arguments:
-  day                   Which day to run. (Required)
+  day                   which day to run (required)
 
 options:
   -h, --help            show this help message and exit
-  -f, --force-input     Force downloads the input.
-  -n, --no-run          Do not run the solutions.
-  -p PART, --part PART  Only run a certain part.
-  -e, --use-example     Uses the example input stored in day<day>/ex.
+  -f, --force-input     force downloads the input
+  -n, --no-run          do not run the solutions
+  -p PART, --part PART  only run a certain part
+  -e, --use-example     uses the example input stored in day<day>/ex
 ```
 Simply place your session cookie in a file `session` and you should be good to go.
