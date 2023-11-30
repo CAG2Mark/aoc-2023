@@ -4,7 +4,7 @@ import argparse
 import os
 import requests
 
-YEAR = 2022
+YEAR = 2023
 
 parser = argparse.ArgumentParser(
                     prog='aoc-run')
