@@ -1,0 +1,5 @@
+session
+.idea
+.vscode
+*/__pycache__
+*/input
