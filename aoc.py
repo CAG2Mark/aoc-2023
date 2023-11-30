@@ -9,11 +9,11 @@ YEAR = 2022
 parser = argparse.ArgumentParser(
                     prog='aoc-run')
 
-parser.add_argument('day')
-parser.add_argument('-f', '--force-input', action='store_true') # Force fetch input
-parser.add_argument('-n', '--no-run', action='store_true') # Do not run
-parser.add_argument('-p', '--part') # Part. If none provided then both are run
-parser.add_argument('-e', '--use-example', action='store_true') # Use "ex" file instead
+parser.add_argument('day', help="Which day to run. (Required)")
+parser.add_argument('-f', '--force-input', action='store_true', help="Force downloads the input.") # Force fetch input
+parser.add_argument('-n', '--no-run', action='store_true', help="Do not run the solutions.") # Do not run
+parser.add_argument('-p', '--part', help="Only run a certain part.") # Part. If none provided then both are run
+parser.add_argument('-e', '--use-example', action='store_true', help="Uses the example input stored in day<day>/ex.") # Use "ex" file instead
 
 args = parser.parse_args()
 
