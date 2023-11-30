@@ -31,13 +31,15 @@ daypath = f"day{day}"
 if not os.path.exists(daypath):
     os.mkdir(f"{daypath}")
 
-    template = open("TEMPLATE.py", "r").read()
-    
-    with open(f"{daypath}/p1.py", "w") as f:
-        f.write(template)
-    
-    with open(f"{daypath}/p2.py", "w") as f:
-        f.write(template)
+template = open("TEMPLATE.py", "r").read()
+
+def write_if_none(path: str, contents: str):
+    if not os.path.exists(path):
+        with open(path, "w") as f:
+            f.write(contents)
+
+write_if_none(f"{daypath}/p1.py", template)
+write_if_none(f"{daypath}/p2.py", template)
 
 input_exists = os.path.exists(f"{daypath}/input")
 
