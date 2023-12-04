@@ -11,8 +11,6 @@ def solve(inp: List[str]):
 
         num = len(set(win).intersection(set(card)))
 
-        print(num)
-
         if num == 0: continue
         sm += 2 ** (num - 1)
 
