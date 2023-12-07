@@ -52,7 +52,6 @@ def handtype_joker(card):
             maxitem = k
 
     if maxfreq == -1: return 8 # five of a kind
-    print(card)
     new_card = ""
     for ch in card:
         if ch == "J":
@@ -66,6 +65,26 @@ cardvals = "AKQT98765432J"
 
 cardmap = {}
 
+def compare(card1, card2):
+    c1 = card1[0]
+    c2 = card2[0]
+
+    t1 = handtype_joker(c1)
+    t2 = handtype_joker(c2)
+
+    if t1 < t2: return -1
+    elif t1 > t2: return 1
+
+    for i in range(5):
+        p1 = cardmap[c1[i]]
+        p2 = cardmap[c2[i]]
+
+        if p1 < p2: return -1
+        elif p1 > p2: return 1
+        
+    return 0
+
+# temporary method I used when the comparator didn't work for some reason...
 def tokey(card):
     c = card[0]
     t = handtype_joker(c)
@@ -83,7 +102,9 @@ def solve(inp: List[str]):
 
     cards = [(ln.split()[0], int(ln.split()[1])) for ln in inp]
 
-    cardssorted = sorted(cards, key=tokey)
+    k = cmp_to_key(compare)
+
+    cardssorted = sorted(cards, key=k)
 
     sm = 0
     for (i, v) in enumerate(cardssorted):
