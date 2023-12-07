@@ -23,7 +23,7 @@ part = args.part
 norun = args.no_run
 use_example = args.use_example
 
-session = open("session", "r").read()
+session = open("session", "r").read().strip()
 cookies = {"session": session}
 
 daypath = f"day{day}"
