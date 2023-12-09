@@ -8,22 +8,17 @@ def is_constant(seq: List[int]):
     
 def extrapolate(seq: List[int]):
     if is_constant(seq):
-        seq.append(seq[0])
+        return seq[0]
     else:
         diffs = []
         for i in range(1, len(seq)):
             diffs.append(seq[i] - seq[i - 1])
-        extrapolate(diffs)
-        seq.append(seq[-1] + diffs[-1])
+        return seq[-1] + extrapolate(diffs)
 
 sequences = []
-
 
 def solve(inp: List[str]):
     for ln in inp:
         sequences.append([int(x) for x in ln.split()])
     
-    for seq in sequences:
-        extrapolate(seq)
-    
-    return sum([l[-1] for l in sequences])
+    return sum([extrapolate(l) for l in sequences])
