@@ -2,6 +2,10 @@ from typing import List
 from functools import cache
 
 @cache
+def all_cache(substr):
+    return any([x == '.' for x in substr])
+
+@cache
 def solve_row(row, items):
     if not row:
         if items:
@@ -9,16 +13,18 @@ def solve_row(row, items):
         else:
             return 1
     
-    if not items and row and row[0] == '#':
+    if not items and row[0] == '#':
         return 0
-
-    if row[0] == '#':  
+    
+    def solve_nonempty():
+        if not items:
+            return 0
         item = items[0]
 
         if len(row) < item:
             return 0
         
-        if any([x == '.' for x in row[:item]]):
+        if all_cache(row[:item]):
             return 0
 
         if len(row) == item:
@@ -32,11 +38,15 @@ def solve_row(row, items):
         
         return solve_row(row[item + 1:], tuple(items[1:]))
     
-    elif row[0] == '.':
+    def solve_empty():
         return solve_row(row[1:], items)
     
+    if row[0] == '#':
+        return solve_nonempty()
+    elif row[0] == '.':
+        return solve_empty()
     else:
-        return solve_row('#' + row[1:], items) + solve_row('.' + row[1:], items)
+        return solve_nonempty() + solve_empty()
 
 
 def solve(inp: List[str]):
