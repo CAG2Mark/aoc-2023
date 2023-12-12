@@ -54,7 +54,7 @@ def solve_fast(row, items):
     return solve_fast_inner(0, 0)
 
 @cache
-def solve_row(row, items):
+def solve_slow(row, items):
     if not row:
         if items:
             return 0
@@ -84,10 +84,10 @@ def solve_row(row, items):
         if row[item] == '#':
             return 0
         
-        return solve_row(row[item + 1:], tuple(items[1:]))
+        return solve_slow(row[item + 1:], tuple(items[1:]))
     
     def solve_empty():
-        return solve_row(row[1:], items)
+        return solve_slow(row[1:], items)
     
     if row[0] == '#':
         return solve_nonempty()
