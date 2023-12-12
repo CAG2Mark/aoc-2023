@@ -5,6 +5,54 @@ from functools import cache
 def all_cache(substr):
     return any([x == '.' for x in substr])
 
+def solve_fast(row, items):
+    @cache
+    def solve_fast_inner(cur_idx, item_idx):
+        if cur_idx == len(row):
+            if item_idx == len(items):
+                return 1
+            else:
+                return 0
+        
+        if item_idx == len(items) and row[cur_idx] == '#':
+            return 0
+        
+        def solve_nonempty():
+            if item_idx == len(items):
+                return 0
+            
+            item = items[item_idx]
+
+            if len(row) - cur_idx < item:
+                return 0
+            
+            if all_cache(row[cur_idx : cur_idx + item]):
+                return 0
+            
+            if len(row) - cur_idx == item:
+                if item_idx == len(items) - 1:
+                    return 1
+                else:
+                    return 0
+            
+            if row[cur_idx + item] == '#':
+                return 0
+            
+            return solve_fast_inner(cur_idx + item + 1, item_idx + 1)
+
+        def solve_empty():
+            return solve_fast_inner(cur_idx + 1, item_idx)
+
+        if row[cur_idx] == '#':  
+            return solve_nonempty()
+        
+        elif row[cur_idx] == '.':
+            return solve_empty()
+        
+        else:
+           return solve_nonempty() + solve_empty()
+    return solve_fast_inner(0, 0)
+
 @cache
 def solve_row(row, items):
     if not row:
@@ -57,7 +105,7 @@ def solve(inp: List[str]):
         row = row[:-1]
         items = tuple([int(x) for x in spl[1].split(",")] * 5)
         
-        val = solve_row(row, items)
+        val = solve_fast(row, items)
 
         sm += val
 
