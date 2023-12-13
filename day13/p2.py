@@ -56,10 +56,7 @@ def try_different(pat):
             val = solve_pat_wrap(patc, og)
             
             if val == og or val[0] == 0:
-                if col == '#':
-                    row[j] = '#'
-                else:
-                    row[j] = '.'
+                row[j] = col
                 continue   
             
             if val[1]:
