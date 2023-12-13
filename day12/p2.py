@@ -8,7 +8,7 @@ def all_cache(substr):
 def solve_fast(row, items):
     @cache
     def solve_fast_inner(cur_idx, item_idx):
-        if cur_idx == len(row):
+        if cur_idx >= len(row):
             if item_idx == len(items):
                 return 1
             else:
@@ -28,14 +28,8 @@ def solve_fast(row, items):
             
             if all_cache(row[cur_idx : cur_idx + item]):
                 return 0
-            
-            if len(row) - cur_idx == item:
-                if item_idx == len(items) - 1:
-                    return 1
-                else:
-                    return 0
-            
-            if row[cur_idx + item] == '#':
+
+            if len(row) - cur_idx > item and row[cur_idx + item] == '#':
                 return 0
             
             return solve_fast_inner(cur_idx + item + 1, item_idx + 1)
@@ -74,14 +68,8 @@ def solve_slow(row, items):
         
         if all_cache(row[:item]):
             return 0
-
-        if len(row) == item:
-            if len(items) == 1:
-                return 1
-            else:
-                return 0
         
-        if row[item] == '#':
+        if len(row) > item and row[item] == '#':
             return 0
         
         return solve_slow(row[item + 1:], tuple(items[1:]))

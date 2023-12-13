@@ -22,13 +22,7 @@ def solve_row(row, items):
         if any([x == '.' for x in row[:item]]):
             return 0
 
-        if len(row) == item:
-            if len(items) == 1:
-                return 1
-            else:
-                return 0
-        
-        if row[item] == '#':
+        if len(row) > item and row[item] == '#':
             return 0
         
         return solve_row(row[item + 1:], tuple(items[1:]))
