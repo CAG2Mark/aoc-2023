@@ -50,7 +50,7 @@ def solve(inp: List[str]):
 
     # 1000000000
     l = []
-    for i in range(1000000000):
+    for i in range(1000000000 * 4):
         if i % 4 == 0:
             # print_board(state)
             l.append(calc_load(state))
