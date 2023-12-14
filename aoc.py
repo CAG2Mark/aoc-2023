@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('day', help="which day to run (required)")
 parser.add_argument('-f', '--force-input', action='store_true', help="force downloads the input") # Force fetch input
+parser.add_argument('-s', '--setup-only', action='store_true', help="just set up the folder for the day then exit") # Force fetch input
 parser.add_argument('-n', '--no-run', action='store_true', help="do not run the solutions") # Do not run
 parser.add_argument('-p', '--part', help="only run a certain part") # Part. If none provided then both are run
 parser.add_argument('-e', '--use-example', action='store_true', help="uses the example input stored in day<day>/ex") # Use "ex" file instead
@@ -20,6 +21,7 @@ args = parser.parse_args()
 day = args.day
 force_input = args.force_input
 part = args.part
+setup_only = args.setup_only
 norun = args.no_run
 use_example = args.use_example
 
@@ -28,18 +30,26 @@ cookies = {"session": session}
 
 daypath = f"day{day}"
 
-if not os.path.exists(daypath):
-    os.mkdir(f"{daypath}")
+def create_template():
+    if not os.path.exists(daypath):
+        os.mkdir(f"{daypath}")
 
-template = open("TEMPLATE.py", "r").read()
+    template = open("TEMPLATE.py", "r").read()
 
-def write_if_none(path: str, contents: str):
-    if not os.path.exists(path):
-        with open(path, "w") as f:
-            f.write(contents)
+    def write_if_none(path: str, contents: str):
+        if not os.path.exists(path):
+            with open(path, "w") as f:
+                f.write(contents)
 
-write_if_none(f"{daypath}/p1.py", template)
-write_if_none(f"{daypath}/p2.py", template)
+    write_if_none(f"{daypath}/p1.py", template)
+    write_if_none(f"{daypath}/p2.py", template)
+    write_if_none(f"{daypath}/ex", "")
+
+create_template()
+
+if setup_only:
+    print(f"Set up the folder for day {day}.")
+    exit(0)
 
 input_exists = os.path.exists(f"{daypath}/input")
 
