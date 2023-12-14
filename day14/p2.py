@@ -50,10 +50,15 @@ def solve(inp: List[str]):
 
     # 1000000000
     l = []
-    for i in range(1000):
+    for i in range(1000000000):
         if i % 4 == 0:
             # print_board(state)
             l.append(calc_load(state))
+
+            for j in range(i // 2):
+                cur = extrapolate_cycle(l, j, 1000000000)
+                if cur != -1:
+                    return cur
         # print_board(state)
         # print()
         move_rocks(state)
@@ -62,9 +67,4 @@ def solve(inp: List[str]):
         state = rotate(state)
         # print("------------------------------")
     
-    for i in range(100):
-        cur = extrapolate_cycle(l, i, 1000000000)
-        if cur != -1:
-            return cur
-    
-    return -1
+    return calc_load(state)
