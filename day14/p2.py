@@ -43,7 +43,41 @@ def extrapolate_cycle(items, length, to):
 
     return c1[to % length]
 
+
+def state_tostr(state):
+    return ''.join([''.join(r) for r in state])
+
 def solve(inp: List[str]):
+    state = []
+    for ln in inp:
+        state.append(list(ln))
+
+    # 1000000000
+    SEEN = {}
+    
+    i = 0
+    skipped = False
+    N = 1000000000
+    while i < N:
+        if not skipped:
+            s = state_tostr(state)
+            if s in SEEN:
+                skipped = True
+                d = i - SEEN[s]
+                i += ((N - i) // d) * d
+            else:
+                SEEN[s] = i
+
+
+        for _ in range(4):
+            move_rocks(state)
+            state = rotate(state)
+    
+        i += 1
+    
+    return calc_load(state)
+
+def solve_old(inp: List[str]):
     state = []
     for ln in inp:
         state.append(list(ln))

@@ -9,11 +9,11 @@ def solve_row(row, items):
             return 0
         else:
             return 1
-    
-    if not items and row and row[0] == '#':
-        return 0
 
     if row[0] == '#':  
+        if not items:
+            return 0
+        
         item = items[0]
 
         if len(row) < item:
