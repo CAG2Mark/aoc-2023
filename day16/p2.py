@@ -8,43 +8,38 @@ def solve_for(start, inp):
 
     # r, c dirR, dirC
     beams = [start]
-    newbeams = []
-
 
     BEEN = set()
     
     while beams:
-        for b in beams:
-            if b in BEEN:
+        b = beams.pop()
+        if b in BEEN:
+            continue
+        BEEN.add(b)
+
+        (r, c, dirR, dirC) = b
+        if 0 <= r < ROWS and 0 <= c < COLS:
+            ch = inp[r][c]
+            energized[r][c] = 1
+
+            if ch == '|' and dirC != 0:
+                beams.append((r + 1, c, 1, 0))
+                beams.append((r - 1, c, -1, 0))
                 continue
-            BEEN.add(b)
+            elif ch == '-' and dirR != 0:
+                beams.append((r, c - 1, 0, -1))
+                beams.append((r, c + 1, 0, 1))
+                continue
 
-            (r, c, dirR, dirC) = b
-            if 0 <= r < ROWS and 0 <= c < COLS:
-                ch = inp[r][c]
-                energized[r][c] = 1
-
-                if ch == '|' and dirC != 0:
-                    newbeams.append((r + 1, c, 1, 0))
-                    newbeams.append((r - 1, c, -1, 0))
-                    continue
-                elif ch == '-' and dirR != 0:
-                    newbeams.append((r, c - 1, 0, -1))
-                    newbeams.append((r, c + 1, 0, 1))
-                    continue
-
-                if ch == '\\':
-                    tmp = dirR
-                    dirR = dirC
-                    dirC = tmp
-                elif ch == '/':
-                    tmp = -dirR
-                    dirR = -dirC
-                    dirC = tmp
-                newbeams.append((r + dirR, c + dirC, dirR, dirC))
-            
-        beams = newbeams
-        newbeams = []
+            if ch == '\\':
+                tmp = dirR
+                dirR = dirC
+                dirC = tmp
+            elif ch == '/':
+                tmp = -dirR
+                dirR = -dirC
+                dirC = tmp
+            beams.append((r + dirR, c + dirC, dirR, dirC))
 
     return sum([sum(l) for l in energized])
 
