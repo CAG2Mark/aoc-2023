@@ -1,6 +1,7 @@
 from typing import List
 from collections import deque
 from collections import defaultdict
+from math import lcm
 
 edges = {}
 flipflops = defaultdict(lambda: False)
@@ -108,6 +109,6 @@ def solve(inp: List[str]):
     
     prod = 1
     for l in targets.values():
-        prod *= l[-1] - l[-2]
+        prod = lcm(prod, l[-1] - l[-2])
 
     return prod
