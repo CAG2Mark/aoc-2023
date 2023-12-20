@@ -28,7 +28,7 @@ use_example = args.use_example
 session = open("session", "r").read().strip()
 cookies = {"session": session}
 
-daypath = f"day{day}"
+daypath = f"day{str(day).rjust(2, '0')}"
 
 def create_template():
     if not os.path.exists(daypath):
