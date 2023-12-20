@@ -2,8 +2,6 @@ from typing import List
 from collections import deque
 from collections import defaultdict
 
-import graphviz
-
 edges = {}
 flipflops = defaultdict(lambda: False)
 conjs = {}
