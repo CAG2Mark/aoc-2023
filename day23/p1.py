@@ -120,8 +120,10 @@ def solve(inp: List[str]):
     end = (ROWS - 1, COLS - 2)
 
     # Too slow to search directly.
-    # Idea: From each slope, and ths start find all other slopes you can reach
-    # call these
+    # Idea: From each slope, and the starting position,
+    # find all other slopes you can reach.
+    # Call these "points of interest".
+    # The idea is we build a directed acyclic graph out of them.
 
     poi = [start]
     for i, ln in enumerate(inp):
