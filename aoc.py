@@ -28,6 +28,10 @@ use_example = args.use_example
 session = open("session", "r").read().strip()
 cookies = {"session": session}
 
+headers = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0"
+}
+
 daypath = f"day{str(day).rjust(2, '0')}"
 
 def create_template():
@@ -55,9 +59,11 @@ input_exists = os.path.exists(f"{daypath}/input")
 
 if force_input or not input_exists:
     print("Downloading input...")
+    
     data = requests.get(f"https://adventofcode.com/{YEAR}/day/{day}/input", cookies=cookies)
     if (data.status_code != 200):
         print(f"Could not download input (error code: {data.status_code}).")
+        print(data.content.decode())
     else:
         print("First 5 lines:")
 
