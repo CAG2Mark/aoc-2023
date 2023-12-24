@@ -25,7 +25,7 @@ def factors(n):
             continue
         i += 2
     
-    if f != 1:
+    if n != 1:
         f.add(n)
     return f
 
@@ -70,6 +70,8 @@ def solve_z3(hailstones):
 def solve_axis(pos, vel):
     import math
     # This solution assumes that the stone and the hailstones all intersect at *integer timestamps*.
+    # It does NOT work on the example input because the Chinese Remainder Theorem only returns an answer
+    # up to modulo p1 * p2 * ... * pn, which are small for the example input.
     #
     # We solve on each dimension. Without loss of generality, we solve on the x dimension first.
     # Denote the positions xi and velocities vi, starting position x0, starting velocity v0,
