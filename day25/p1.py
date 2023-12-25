@@ -40,7 +40,6 @@ def findpaths(src):
 def get_most_used(nodes):
     cntr = defaultdict(lambda: 0)
 
-    # first 5 nodes seems to be sufficient
     for i in range(len(nodes)):
         prev = findpaths(nodes[i])
 
